@@ -38,27 +38,27 @@
 :root {
   --radius: 0.375rem;
   --background: oklch(1 0 0);
-  --foreground: oklch(0.32 0.03 245); /* #263746 */
+  --foreground: oklch(0.328758 0.034774 245.748373); /* #263746 */
   --card: oklch(1 0 0);
-  --card-foreground: oklch(0.32 0.03 245);
+  --card-foreground: var(--foreground);
   --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.32 0.03 245);
-  --primary: oklch(0.6 0.12 240); /* #278CCB */
+  --popover-foreground: var(--foreground);
+  --primary: oklch(0.613552 0.130326 241.788316); /* #278CCB */
   --primary-foreground: oklch(1 0 0);
-  --secondary: oklch(0.978 0.008 230); /* #F4F9FC */
-  --secondary-foreground: oklch(0.32 0.06 245);
-  --muted: oklch(0.978 0.008 230);
-  --muted-foreground: oklch(0.32 0.03 245 / 0.72);
-  --accent: oklch(0.56 0.16 22); /* #C94248 */
+  --secondary: oklch(0.979200 0.006667 233.638956); /* #F4F9FC */
+  --secondary-foreground: var(--navy);
+  --muted: var(--secondary);
+  --muted-foreground: oklch(0.328758 0.034774 245.748373 / 0.8);
+  --accent: oklch(0.572384 0.170861 21.912425); /* #C94248 */
   --accent-foreground: oklch(1 0 0);
-  --destructive: oklch(0.56 0.16 22);
+  --destructive: var(--accent);
   --destructive-foreground: oklch(1 0 0);
-  --navy: oklch(0.32 0.06 245); /* #173B57 */
+  --navy: oklch(0.340510 0.064317 244.880988); /* #173B57 */
   --navy-foreground: oklch(1 0 0);
-  --soft: oklch(0.978 0.008 230);
-  --border: oklch(0.32 0.06 245 / 0.12);
-  --input: oklch(0.32 0.06 245 / 0.2);
-  --ring: oklch(0.6 0.12 240);
+  --soft: var(--secondary);
+  --border: oklch(0.340510 0.064317 244.880988 / 0.12);
+  --input: oklch(0.340510 0.064317 244.880988 / 0.2);
+  --ring: var(--primary);
 }
 
 @layer base {
@@ -74,7 +74,7 @@
   h1, h2, h3, h4 {
     font-family: var(--font-display);
     color: var(--color-navy);
-    letter-spacing: -0.02em;
+    letter-spacing: 0;
     line-height: 1.15;
   }
 }
@@ -90,7 +90,7 @@
   font-family: var(--font-sans);
   font-size: 0.75rem;
   font-weight: 600;
-  letter-spacing: 0.12em;
+   letter-spacing: 0;
   text-transform: uppercase;
   color: var(--color-primary);
 }

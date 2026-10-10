@@ -9,6 +9,7 @@ export function pageHead(path: string, title: string, description: string, type 
       { property: "og:url", content: path },
       { name: "twitter:title", content: title },
       { name: "twitter:description", content: description },
+      { name: "twitter:card", content: "summary_large_image" },
     ],
     links: [{ rel: "canonical", href: path }],
   };
