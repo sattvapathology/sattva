@@ -1,8 +1,9 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { Star, Clock, Home, ShieldCheck, FileText, Users, MapPin, ArrowRight, Check, Phone, MessageCircle } from "lucide-react";
+import { Star, Clock, Home, ShieldCheck, FileText, Users, MapPin, ArrowRight, Check, Phone, MessageCircle, Camera } from "lucide-react";
 import { SITE, TESTS, POPULAR, FAQS, REVIEWS, waLink, mapsEmbed, mapsDirections, reviewsLink } from "@/lib/site";
 import { FaqList, CtaBand } from "@/components/site";
 import { pageHead } from "@/lib/seo";
+import { Button } from "@/components/ui/button";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -33,36 +34,35 @@ const WHY = [
 ];
 
 function HomePage() {
-  const popular = POPULAR.map((s) => TESTS.find((t) => t.slug === s)!);
+  const popular = TESTS.filter((t) => POPULAR.includes(t.slug));
   return (
     <>
       {/* Hero */}
-      <section className="bg-soft">
-        <div className="container-site grid gap-12 py-14 md:py-20 lg:grid-cols-[1.25fr_1fr] lg:items-center">
+      <section className="border-b bg-soft" aria-label="Sattva Pathology Laboratory">
+        <div className="container-site grid gap-8 py-10 md:py-12 lg:grid-cols-[1.25fr_1fr] lg:items-center lg:gap-12">
           <div>
             <p className="eyebrow">{SITE.name} · Ahmedabad</p>
-            <h1 className="mt-4 text-4xl font-extrabold md:text-6xl">
-              Accurate Testing.<br /><span className="text-primary">Trusted Care.</span>
+            <h1 className="mt-4 text-4xl font-bold leading-[1.15] text-navy md:text-[3.5rem]">
+              Accurate Testing.<br />Trusted Care<span className="text-primary">.</span>
             </h1>
-            <p className="mt-5 max-w-xl text-lg text-muted-foreground">
+            <p className="mt-5 max-w-xl text-base leading-relaxed text-muted-foreground md:text-lg">
               24/7 pathology laboratory in Ahmedabad with accurate reports, hygienic sample handling, and convenient home sample collection.
             </p>
-            <div className="mt-8 flex flex-wrap gap-3">
-              <Link to="/home-collection" className="btn btn-accent">Book Home Collection</Link>
-              <a href={SITE.phoneHref} className="btn btn-primary"><Phone className="h-4 w-4" /> Call {SITE.phoneDisplay}</a>
-              <a href={waLink()} target="_blank" rel="noopener noreferrer" className="btn btn-outline"><MessageCircle className="h-4 w-4" /> WhatsApp Us</a>
+            <div className="mt-7 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
+              <Button asChild variant="medicalAccent" size="medical"><Link to="/home-collection">Book Home Collection</Link></Button>
+              <Button asChild variant="medicalPrimary" size="medical"><a href={SITE.phoneHref}><Phone aria-hidden="true" /> Call {SITE.phoneDisplay}</a></Button>
             </div>
           </div>
-          <dl className="grid grid-cols-2 border bg-background">
+          <dl className="grid grid-cols-2 rounded-sm border bg-background" aria-label="Laboratory trust indicators">
             {[
-              { k: <span className="flex items-center gap-1.5">4.8 <Star className="h-6 w-6 fill-accent text-accent" /></span>, v: "Google rating" },
-              { k: "186+", v: "Patient reviews" },
-              { k: "24 hrs", v: "Open every day" },
-              { k: "Home", v: "Collection available" },
+              { k: <span>4.8 <span className="text-accent">★</span></span>, v: "on Google" },
+              { k: "186+", v: "Google Reviews" },
+              { k: "Open", v: "24 Hours" },
+              { k: "Home Collection", v: "Available" },
             ].map((s, i) => (
-              <div key={i} className={`p-6 md:p-8 ${i % 2 === 0 ? "border-r" : ""} ${i < 2 ? "border-b" : ""}`}>
-                <dt className="font-display text-3xl font-extrabold text-navy md:text-4xl">{s.k}</dt>
-                <dd className="mt-1 text-sm text-muted-foreground">{s.v}</dd>
+              <div key={i} className={`flex min-h-28 flex-col justify-center px-5 py-5 md:min-h-32 md:px-6 ${i % 2 === 0 ? "border-r" : ""} ${i < 2 ? "border-b" : ""}`}>
+                <dt className={`font-display font-bold leading-tight text-navy ${i === 3 ? "text-lg md:text-xl" : "text-3xl"}`}>{s.k}</dt>
+                <dd className="mt-2 text-sm text-muted-foreground">{s.v}</dd>
               </div>
             ))}
           </dl>
@@ -70,7 +70,7 @@ function HomePage() {
       </section>
 
       {/* Popular tests */}
-      <section className="container-site py-16 md:py-24">
+      <section className="container-site py-10 md:py-12">
         <div className="flex flex-wrap items-end justify-between gap-4">
           <div>
             <p className="eyebrow">Popular tests</p>
@@ -78,7 +78,7 @@ function HomePage() {
           </div>
           <Link to="/tests" className="inline-flex items-center gap-1 font-semibold text-primary hover:text-navy">View all tests <ArrowRight className="h-4 w-4" /></Link>
         </div>
-        <ul className="mt-10 divide-y border-y">
+        <ul className="mt-7 divide-y border-y">
           {popular.map((t) => (
             <li key={t.slug}>
               <Link to="/tests/$slug" params={{ slug: t.slug }} className="group grid gap-2 py-5 md:grid-cols-[1.2fr_2fr_auto] md:items-center md:gap-8">
@@ -99,6 +99,12 @@ function HomePage() {
               <p className="eyebrow">Why Sattva</p>
               <h2 className="mt-2 text-3xl font-extrabold md:text-4xl">Care you can rely on, any hour</h2>
               <p className="mt-4 text-muted-foreground">Trusted by patients in Nirnaynagar and across Ahmedabad, with a 4.8 Google rating.</p>
+              <figure className="mt-7" aria-label="Reserved space for an authentic Sattva laboratory photograph">
+                <div className="flex aspect-[4/3] items-center justify-center border bg-background">
+                  <Camera className="h-7 w-7 text-navy/30" strokeWidth={1.25} aria-hidden="true" />
+                </div>
+                <figcaption className="mt-3 flex flex-wrap justify-between gap-1 text-xs text-muted-foreground"><span>Inside Sattva</span><span>Laboratory · Ahmedabad</span></figcaption>
+              </figure>
             </div>
             <div className="grid gap-px border bg-border sm:grid-cols-2">
               {WHY.map(({ icon: Icon, t, d }) => (

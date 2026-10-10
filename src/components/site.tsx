@@ -14,11 +14,10 @@ const NAV = [
 
 export function Logo() {
   return (
-    <Link to="/" className="flex items-center gap-2.5" aria-label={`${SITE.name} home`}>
-      <span className="grid h-9 w-9 place-items-center rounded-sm bg-primary font-display text-lg font-extrabold text-primary-foreground">S</span>
+    <Link to="/" className="flex shrink-0 items-center py-2" aria-label={`${SITE.name} home`}>
       <span className="leading-tight">
-        <span className="block font-display text-base font-extrabold text-navy">Sattva</span>
-        <span className="block text-[0.68rem] font-semibold uppercase tracking-[0.14em] text-accent">Pathology Laboratory</span>
+        <span className="block font-display text-2xl font-extrabold text-navy">Sattva</span>
+        <span className="mt-1 block text-[0.68rem] font-semibold uppercase text-accent">Pathology Laboratory</span>
       </span>
     </Link>
   );
@@ -30,7 +29,7 @@ export function SiteHeader() {
     <header className="sticky top-0 z-40 border-b bg-background">
       <div className="container-site flex h-16 items-center justify-between gap-4 md:h-20">
         <Logo />
-        <nav className="hidden items-center gap-6 lg:flex" aria-label="Main">
+        <nav className="hidden items-center gap-4 xl:flex" aria-label="Main">
           {NAV.map((n) => (
             <Link key={n.to} to={n.to} className="text-sm font-medium text-foreground hover:text-primary" activeProps={{ className: "text-primary" }}>
               {n.label}
@@ -41,12 +40,12 @@ export function SiteHeader() {
           <a href={SITE.phoneHref} className="btn btn-outline"><Phone className="h-4 w-4" /> Call Now</a>
           <Link to="/home-collection" className="btn btn-accent">Book Home Collection</Link>
         </div>
-        <button className="btn btn-outline px-3 lg:hidden" onClick={() => setOpen(!open)} aria-label="Toggle menu" aria-expanded={open}>
+        <button className="btn btn-outline px-3 xl:hidden" onClick={() => setOpen(!open)} aria-label="Toggle menu" aria-expanded={open}>
           {open ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
         </button>
       </div>
       {open && (
-        <div className="border-t bg-background lg:hidden">
+        <div className="border-t bg-background xl:hidden">
           <nav className="container-site flex flex-col py-3" aria-label="Mobile">
             {NAV.map((n) => (
               <Link key={n.to} to={n.to} onClick={() => setOpen(false)} className="border-b py-3 font-medium text-navy last:border-0">
@@ -103,7 +102,7 @@ export function SiteFooter() {
 export function WhatsAppFloat() {
   return (
     <a href={waLink()} target="_blank" rel="noopener noreferrer" aria-label="Chat on WhatsApp"
-      className="fixed bottom-5 right-5 z-50 grid h-14 w-14 place-items-center rounded-full bg-primary text-primary-foreground shadow-lg hover:bg-navy">
+      className="fixed bottom-5 right-5 z-50 grid h-14 w-14 place-items-center rounded-full border border-background bg-primary text-primary-foreground hover:bg-navy focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring">
       <MessageCircle className="h-6 w-6" />
     </a>
   );

@@ -8,3 +8,8 @@
 > Commits you push to the connected branch sync back to Lovable and show up in
 > the editor, so keep the branch in a working state.
 <!-- LOVABLE:END -->
+
+## Project rules
+- Keep branding in the shared Logo component so an approved original asset replaces the temporary text wordmark consistently across pages.
+- Use semantic medical Button variants for homepage CTAs to keep color, sizing and focus states consistent.
+- Keep the genuine-photo position in the homepage's Why Sattva section so the existing text-and-trust hero layout remains unchanged.
