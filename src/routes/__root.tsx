@@ -12,25 +12,15 @@ import { useEffect, type ReactNode } from "react";
 
 import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
+import { SiteHeader, SiteFooter, WhatsAppFloat } from "@/components/site";
+import { SITE } from "@/lib/site";
 
 function NotFoundComponent() {
   return (
-    <div className="flex min-h-screen items-center justify-center bg-background px-4">
-      <div className="max-w-md text-center">
-        <h1 className="text-7xl font-bold text-foreground">404</h1>
-        <h2 className="mt-4 text-xl font-semibold text-foreground">Page not found</h2>
-        <p className="mt-2 text-sm text-muted-foreground">
-          The page you're looking for doesn't exist or has been moved.
-        </p>
-        <div className="mt-6">
-          <Link
-            to="/"
-            className="inline-flex items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/90"
-          >
-            Go home
-          </Link>
-        </div>
-      </div>
+    <div className="container-site py-24 text-center">
+      <h1 className="text-6xl font-extrabold">404</h1>
+      <p className="mt-4 text-muted-foreground">This page doesn't exist or has been moved.</p>
+      <Link to="/" className="btn btn-primary mt-6">Go home</Link>
     </div>
   );
 }
@@ -41,59 +31,64 @@ function ErrorComponent({ error, reset }: ErrorComponentProps) {
   useEffect(() => {
     reportLovableError(error, { boundary: "tanstack_root_error_component" });
   }, [error]);
-
   return (
-    <div className="flex min-h-screen items-center justify-center bg-background px-4">
-      <div className="max-w-md text-center">
-        <h1 className="text-xl font-semibold tracking-tight text-foreground">
-          This page didn't load
-        </h1>
-        <p className="mt-2 text-sm text-muted-foreground">
-          Something went wrong on our end. You can try refreshing or head back home.
-        </p>
-        <div className="mt-6 flex flex-wrap justify-center gap-2">
-          <button
-            onClick={() => {
-              router.invalidate();
-              reset();
-            }}
-            className="inline-flex items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/90"
-          >
-            Try again
-          </button>
-          <a
-            href="/"
-            className="inline-flex items-center justify-center rounded-md border border-input bg-background px-4 py-2 text-sm font-medium text-foreground transition-colors hover:bg-accent"
-          >
-            Go home
-          </a>
-        </div>
-      </div>
+    <div className="container-site py-24 text-center">
+      <h1 className="text-xl font-semibold">This page didn't load</h1>
+      <p className="mt-2 text-sm text-muted-foreground">Please try again or call us on {SITE.phoneDisplay}.</p>
+      <button onClick={() => { router.invalidate(); reset(); }} className="btn btn-primary mt-6">Try again</button>
     </div>
   );
 }
+
+const localBusiness = {
+  "@context": "https://schema.org",
+  "@type": "MedicalBusiness",
+  additionalType: "https://schema.org/DiagnosticLab",
+  name: SITE.name,
+  slogan: SITE.tagline,
+  url: SITE.url,
+  telephone: "+91-7600944188",
+  email: SITE.email,
+  address: {
+    "@type": "PostalAddress",
+    streetAddress: "204, Dream Square Complex",
+    addressLocality: "Ahmedabad",
+    addressRegion: "Gujarat",
+    postalCode: "380013",
+    addressCountry: "IN",
+  },
+  geo: { "@type": "GeoCoordinates", latitude: 23.0668, longitude: 72.5545 },
+  openingHoursSpecification: {
+    "@type": "OpeningHoursSpecification",
+    dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"],
+    opens: "00:00",
+    closes: "23:59",
+  },
+  aggregateRating: { "@type": "AggregateRating", ratingValue: SITE.rating, reviewCount: SITE.reviews },
+  areaServed: "Ahmedabad",
+};
 
 export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()({
   head: () => ({
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Lovable App" },
-      { name: "description", content: "Lovable Generated Project" },
-      { name: "author", content: "Lovable" },
-      { property: "og:title", content: "Lovable App" },
-      { property: "og:description", content: "Lovable Generated Project" },
+      { title: `${SITE.name} — 24/7 Pathology Lab in Ahmedabad` },
+      { name: "description", content: "24/7 pathology laboratory in Ahmedabad offering blood tests, health packages and home sample collection." },
+      { property: "og:site_name", content: SITE.name },
       { property: "og:type", content: "website" },
+      { property: "og:locale", content: "en_IN" },
       { name: "twitter:card", content: "summary_large_image" },
-      { name: "twitter:site", content: "@Lovable" },
+      { name: "theme-color", content: "#278CCB" },
     ],
     links: [
-      {
-        rel: "stylesheet",
-        href: appCss,
-      },
+      { rel: "stylesheet", href: appCss },
       { rel: "icon", href: "/favicon.ico", type: "image/x-icon" },
+      { rel: "preconnect", href: "https://fonts.googleapis.com" },
+      { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
+      { rel: "stylesheet", href: "https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Manrope:wght@600;700;800&display=swap" },
     ],
+    scripts: [{ type: "application/ld+json", children: JSON.stringify(localBusiness) }],
   }),
   shellComponent: RootShell,
   component: RootComponent,
@@ -117,11 +112,14 @@ function RootShell({ children }: { children: ReactNode }) {
 
 function RootComponent() {
   const { queryClient } = Route.useRouteContext();
-
   return (
     <QueryClientProvider client={queryClient}>
-      {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
-      <Outlet />
+      <SiteHeader />
+      <main>
+        <Outlet />
+      </main>
+      <SiteFooter />
+      <WhatsAppFloat />
     </QueryClientProvider>
   );
 }
