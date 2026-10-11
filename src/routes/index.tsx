@@ -34,7 +34,7 @@ function HomePage() {
     <>
       {/* HERO */}
       <section className="bg-navy text-navy-foreground">
-        <div className="container-site grid gap-12 py-14 md:py-20 lg:min-h-[calc(100svh-7.25rem)] lg:grid-cols-[1.1fr_1fr] lg:items-center lg:gap-16">
+        <div className="container-site grid gap-12 py-14 md:py-20 lg:min-h-[min(calc(100svh-7.25rem),52rem)] lg:grid-cols-[1.1fr_1fr] lg:items-center lg:gap-16">
           <div>
             <p className="text-xs font-semibold uppercase tracking-[0.18em] text-navy-foreground/70"><span className="mr-2 inline-block h-2 w-2 bg-accent align-middle" aria-hidden="true" />Sattva Pathology Laboratory · Ahmedabad</p>
             <h1 className="mt-6 max-w-2xl font-display text-5xl font-extrabold leading-[1.02] tracking-tight text-navy-foreground md:text-7xl">
@@ -52,7 +52,7 @@ function HomePage() {
           </div>
           <div className="relative pb-16 lg:pb-0">
             <PhotoSlot tone="navy" label="Tall photo — sample collection or Sattva reception, cropped portrait" className="aspect-[4/5] w-full border-navy-foreground/25 bg-navy lg:ml-auto lg:max-w-md" />
-            <dl className="absolute bottom-0 left-0 w-64 divide-y bg-background p-6 text-foreground lg:-left-10 lg:bottom-10">
+            <dl className="absolute bottom-0 left-0 w-64 divide-y bg-background p-6 text-foreground lg:-left-10 lg:bottom-auto lg:top-1/3">
               {[["Open", "24 Hours"], ["Home Collection", "Available"], ["4.8 ★", "on Google"]].map(([a, b]) => (
                 <div key={a} className="flex items-baseline justify-between gap-3 py-2.5 first:pt-0 last:pb-0">
                   <dt className="font-display text-lg font-bold text-navy">{a}</dt><dd className="text-sm text-muted-foreground">{b}</dd>
