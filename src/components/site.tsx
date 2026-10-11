@@ -1,7 +1,7 @@
 import { Link } from "@tanstack/react-router";
 import { useState, type ReactNode } from "react";
 import { Phone, MessageCircle, Menu, X, MapPin, Mail, Clock, ChevronDown } from "lucide-react";
-import { SITE, waLink } from "@/lib/site";
+import { SITE, waLink, reviewsLink } from "@/lib/site";
 
 const NAV = [
   { to: "/tests", label: "Tests" },
@@ -23,9 +23,34 @@ export function Logo() {
   );
 }
 
+export function UtilityBar() {
+  return (
+    <div className="bg-navy text-navy-foreground">
+      <div className="container-site flex h-9 items-center justify-between gap-4 text-xs">
+        <p className="truncate"><span className="hidden sm:inline">Open 24 Hours · Home Collection Across Ahmedabad · </span>Call <a href={SITE.phoneHref} className="font-semibold underline-offset-4 hover:underline">{SITE.phoneDisplay}</a></p>
+        <div className="flex shrink-0 items-center gap-4">
+          <span lang="gu" title="Gujarati version coming soon" className="opacity-80">ગુજરાતી</span>
+          <Link to="/reports" className="font-semibold underline-offset-4 hover:underline">Patient Reports</Link>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+export function MobileBookBar() {
+  return (
+    <div className="fixed inset-x-0 bottom-0 z-40 grid grid-cols-[auto_1fr] gap-2 border-t bg-background p-3 md:hidden">
+      <a href={SITE.phoneHref} className="btn btn-outline px-4" aria-label={`Call ${SITE.phoneDisplay}`}><Phone className="h-4 w-4" /> Call</a>
+      <Link to="/home-collection" className="btn btn-accent">Book Home Collection</Link>
+    </div>
+  );
+}
+
 export function SiteHeader() {
   const [open, setOpen] = useState(false);
   return (
+    <>
+    <UtilityBar />
     <header className="sticky top-0 z-40 border-b bg-background">
       <div className="container-site flex h-16 items-center justify-between gap-4 md:h-20">
         <Logo />
@@ -37,7 +62,6 @@ export function SiteHeader() {
           ))}
         </nav>
         <div className="hidden items-center gap-2 md:flex">
-          <a href={SITE.phoneHref} className="btn btn-outline"><Phone className="h-4 w-4" /> Call Now</a>
           <Link to="/home-collection" className="btn btn-accent">Book Home Collection</Link>
         </div>
         <button className="btn btn-outline px-3 xl:hidden" onClick={() => setOpen(!open)} aria-label="Toggle menu" aria-expanded={open}>
@@ -60,6 +84,7 @@ export function SiteHeader() {
         </div>
       )}
     </header>
+    </>
   );
 }
 
@@ -89,11 +114,12 @@ export function SiteFooter() {
             <li><Link to="/home-collection" className="hover:underline">Book home collection</Link></li>
             <li><Link to="/reports" className="hover:underline">Report status</Link></li>
             <li><Link to="/privacy" className="hover:underline">Privacy policy</Link></li>
+            <li><a href={reviewsLink} target="_blank" rel="noopener noreferrer" className="hover:underline">Google Business Profile</a></li>
           </ul>
         </div>
       </div>
       <div className="border-t border-navy-foreground/15">
-        <p className="container-site py-5 text-xs opacity-70">© {new Date().getFullYear()} {SITE.name}, Ahmedabad.</p>
+        <p className="container-site py-5 pb-24 text-xs opacity-70 md:pb-5">© {new Date().getFullYear()} {SITE.name}, Ahmedabad.</p>
       </div>
     </footer>
   );
@@ -102,7 +128,7 @@ export function SiteFooter() {
 export function WhatsAppFloat() {
   return (
     <a href={waLink()} target="_blank" rel="noopener noreferrer" aria-label="Chat on WhatsApp"
-      className="fixed bottom-5 right-5 z-50 grid h-14 w-14 place-items-center rounded-full border border-background bg-primary text-primary-foreground hover:bg-navy focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring">
+      className="fixed bottom-20 right-4 md:bottom-5 md:right-5 z-50 grid h-14 w-14 place-items-center rounded-full border border-background bg-primary text-primary-foreground hover:bg-navy focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring">
       <MessageCircle className="h-6 w-6" />
     </a>
   );
@@ -197,5 +223,16 @@ export function EnquiryForm({ title, fields, submit, intro }: { title: string; f
       <button type="submit" className="btn btn-accent w-full sm:w-auto">{submit}</button>
       {sent && <p className="text-sm text-primary" role="status">Your details have opened in WhatsApp. Please press send to complete your request.</p>}
     </form>
+  );
+}
+
+/** Labelled placeholder until an authentic Sattva photograph is supplied. Never fill with AI or stock imagery. */
+export function PhotoSlot({ label, tone = "soft", className = "" }: { label: string; tone?: "soft" | "navy" | "white"; className?: string }) {
+  const t = tone === "navy" ? "bg-navy text-navy-foreground border-navy-foreground/20" : tone === "white" ? "bg-background text-navy" : "bg-soft text-navy";
+  return (
+    <figure className={`relative flex flex-col justify-between border p-5 ${t} ${className}`} aria-label={`Photo placeholder: ${label}`}>
+      <span className="text-[0.68rem] font-semibold uppercase tracking-[0.14em] opacity-60">Photo · Replace with real image</span>
+      <figcaption className="max-w-[16rem] font-display text-sm font-semibold opacity-80">{label}</figcaption>
+    </figure>
   );
 }
