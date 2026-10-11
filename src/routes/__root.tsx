@@ -12,7 +12,7 @@ import { useEffect, type ReactNode } from "react";
 
 import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
-import { SiteHeader, SiteFooter, WhatsAppFloat } from "@/components/site";
+import { SiteHeader, SiteFooter, WhatsAppFloat, MobileBookBar } from "@/components/site";
 import { SITE } from "@/lib/site";
 
 function NotFoundComponent() {
@@ -120,6 +120,7 @@ function RootComponent() {
       </main>
       <SiteFooter />
       <WhatsAppFloat />
+      <MobileBookBar />
     </QueryClientProvider>
   );
 }
