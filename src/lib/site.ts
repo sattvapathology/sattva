@@ -74,18 +74,18 @@ export const PACKAGES = [
 ];
 
 export const FAQS = [
-  ["Is Sattva Pathology Laboratory open 24 hours?", "Yes. The laboratory is open 24 hours a day, 7 days a week for walk-in tests and enquiries."],
-  ["Do you provide home sample collection in Ahmedabad?", "Yes. Our trained staff can collect your sample from your home in Ahmedabad. Book online, call us or message us on WhatsApp."],
-  ["How can I book a blood test?", "Use the Book Home Collection form, call 076009 44188, or send us a WhatsApp message. You can also walk in at any time."],
-  ["Do I need to fast before my test?", "Some tests such as fasting sugar and lipid profile need 8–12 hours of fasting. Each test page lists its preparation, or you can call us to confirm."],
-  ["How will I receive my reports?", "Reports are shared on WhatsApp or email, and printed copies can be collected from the lab."],
-  ["How can I check my report status?", "Use the Report Status Request form on the Reports page, or call or WhatsApp us with your name and registered mobile number."],
-  ["Which areas do you serve for home collection?", "We serve Nirnaynagar and nearby areas of Ahmedabad. Call us to confirm availability for your location."],
-  ["How can I contact the laboratory?", "Call 076009 44188, WhatsApp us, email contact@sattvapathology.in, or visit 204, Dream Square Complex, Ahmedabad 380013."],
+  ["Is Sattva Pathology Laboratory open 24 hours?", "Yes. Sattva Pathology Laboratory is open 24 hours, every day."],
+  ["Is home sample collection available?", "Yes. Home sample collection is available in Ahmedabad, subject to area and booking confirmation. Call or WhatsApp us to check availability."],
+  ["How can I book a test or package?", "Call 076009 44188, send us a WhatsApp message, or use the home collection request form. You can also visit the lab."],
+  ["What should I do before a fasting test?", "Our team can guide you on preparation when you contact the laboratory, so please ask when you book."],
+  ["How can I contact the laboratory?", "Call 076009 44188 or message us on WhatsApp at any time."],
+  ["Where is Sattva Pathology located?", "204, Dream Square Complex, Ahmedabad, Gujarat 380013."],
+  ["How will I receive my report?", "Our team can guide you on report collection when you contact the laboratory."],
 ] as const;
 
 export const REVIEWS = [
-  { name: "Patient review", text: "Very friendly staff and the sample collection was quick and painless. Reports came on time." },
-  { name: "Patient review", text: "Booked home collection for my parents. The staff came on time and handled everything hygienically." },
-  { name: "Patient review", text: "They explained my report clearly and patiently. Good to have a lab that is open 24 hours." },
+  { name: "Bhagirath Chavda", text: "Good hygiene, minimal waiting, and reports delivered on time." },
+  { name: "Khushboo Rathod", text: "Friendly, professional staff and smooth sample collection." },
+  { name: "Rajneesh Aacharya", text: "Reliable results with fast turnaround and excellent customer service." },
+  { name: "Arpit Kansar", text: "Convenient home collection and reports delivered as promised." },
 ];
