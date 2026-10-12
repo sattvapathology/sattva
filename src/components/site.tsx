@@ -1,23 +1,23 @@
 import { Link } from "@tanstack/react-router";
 import { useState, type ReactNode } from "react";
-import { Phone, MessageCircle, Menu, X, MapPin, Mail, Clock, ChevronDown } from "lucide-react";
+import { Phone, MessageCircle, Menu, X, MapPin, Clock, ChevronDown } from "lucide-react";
 import { SITE, waLink, reviewsLink } from "@/lib/site";
 
 const NAV = [
+  { to: "/", label: "Home" },
   { to: "/tests", label: "Tests" },
   { to: "/packages", label: "Health Packages" },
   { to: "/home-collection", label: "Home Collection" },
-  { to: "/reports", label: "Reports" },
   { to: "/about", label: "About" },
   { to: "/contact", label: "Contact" },
 ] as const;
 
-export function Logo() {
+export function Logo({ invert = false }: { invert?: boolean }) {
   return (
-    <Link to="/" className="flex shrink-0 items-center py-2" aria-label={`${SITE.name} home`}>
-      <span className="leading-tight">
-        <span className="block font-display text-2xl font-extrabold text-navy">Sattva</span>
-        <span className="mt-1 block text-[0.68rem] font-semibold uppercase text-accent">Pathology Laboratory</span>
+    <Link to="/" className="flex shrink-0 items-center py-2" aria-label={`${SITE.name} home`} title="Official Sattva logo placeholder — replace with uploaded logo" data-placeholder="official-logo">
+      <span className={`leading-tight ${invert ? "text-navy-foreground" : "text-navy"}`}>
+        <span className="block font-display text-2xl font-extrabold">Sattva</span>
+        <span className={`mt-1 block text-[0.68rem] font-semibold uppercase ${invert ? "opacity-80" : "text-accent"}`}>Pathology Laboratory</span>
       </span>
     </Link>
   );
@@ -27,10 +27,10 @@ export function UtilityBar() {
   return (
     <div className="bg-navy text-navy-foreground">
       <div className="container-site flex h-9 items-center justify-between gap-4 text-xs">
-        <p className="truncate"><span className="hidden sm:inline">Open 24 Hours · Home Collection Across Ahmedabad · </span>Call <a href={SITE.phoneHref} className="font-semibold underline-offset-4 hover:underline">{SITE.phoneDisplay}</a></p>
+        <p className="truncate"><span className="hidden sm:inline">Open 24 Hours · Home Sample Collection Available · </span>Call <a href={SITE.phoneHref} className="font-semibold underline-offset-4 hover:underline">{SITE.phoneDisplay}</a></p>
         <div className="flex shrink-0 items-center gap-4">
           <span lang="gu" title="Gujarati version coming soon" className="opacity-80">ગુજરાતી</span>
-          <Link to="/reports" className="font-semibold underline-offset-4 hover:underline">Patient Reports</Link>
+          <Link to="/contact" className="font-semibold underline-offset-4 hover:underline">Patient Enquiries</Link>
         </div>
       </div>
     </div>
@@ -56,12 +56,13 @@ export function SiteHeader() {
         <Logo />
         <nav className="hidden items-center gap-4 xl:flex" aria-label="Main">
           {NAV.map((n) => (
-            <Link key={n.to} to={n.to} className="text-sm font-medium text-foreground hover:text-primary" activeProps={{ className: "text-primary" }}>
+            <Link key={n.to} to={n.to} className="text-sm font-medium text-foreground hover:text-primary" activeOptions={{ exact: n.to === "/" }} activeProps={{ className: "text-primary" }}>
               {n.label}
             </Link>
           ))}
         </nav>
-        <div className="hidden items-center gap-2 md:flex">
+        <div className="hidden items-center gap-5 md:flex">
+          <Link to="/reports" className="text-sm text-muted-foreground hover:text-primary">Reports</Link>
           <Link to="/home-collection" className="btn btn-accent">Book Home Collection</Link>
         </div>
         <button className="btn btn-outline px-3 xl:hidden" onClick={() => setOpen(!open)} aria-label="Toggle menu" aria-expanded={open}>
@@ -76,9 +77,11 @@ export function SiteHeader() {
                 {n.label}
               </Link>
             ))}
+            <Link to="/reports" onClick={() => setOpen(false)} className="border-t py-3 text-sm text-muted-foreground">Reports</Link>
             <div className="grid grid-cols-2 gap-2 pt-3">
               <a href={SITE.phoneHref} className="btn btn-outline"><Phone className="h-4 w-4" /> Call</a>
-              <Link to="/home-collection" onClick={() => setOpen(false)} className="btn btn-accent">Book Collection</Link>
+              <a href={waLink()} target="_blank" rel="noopener noreferrer" className="btn btn-outline"><MessageCircle className="h-4 w-4" /> WhatsApp</a>
+              <Link to="/home-collection" onClick={() => setOpen(false)} className="btn btn-accent col-span-2">Book Home Collection</Link>
             </div>
           </nav>
         </div>
@@ -93,12 +96,11 @@ export function SiteFooter() {
     <footer className="bg-navy text-navy-foreground">
       <div className="container-site grid gap-10 py-14 md:grid-cols-4">
         <div className="md:col-span-2">
-          <p className="font-display text-xl font-extrabold">{SITE.name}</p>
-          <p className="mt-1 opacity-80">{SITE.tagline}</p>
+          <Logo invert />
+          <p className="mt-3 opacity-80">{SITE.tagline}</p>
           <ul className="mt-6 space-y-2 text-sm opacity-90">
             <li className="flex gap-2"><MapPin className="mt-0.5 h-4 w-4 shrink-0" />{SITE.address}</li>
             <li className="flex gap-2"><Phone className="mt-0.5 h-4 w-4" /><a href={SITE.phoneHref}>{SITE.phoneDisplay}</a></li>
-            <li className="flex gap-2"><Mail className="mt-0.5 h-4 w-4" /><a href={`mailto:${SITE.email}`}>{SITE.email}</a></li>
             <li className="flex gap-2"><Clock className="mt-0.5 h-4 w-4" />Open 24 hours, 7 days</li>
           </ul>
         </div>
@@ -112,14 +114,18 @@ export function SiteFooter() {
           <p className="text-sm font-semibold uppercase tracking-wider opacity-70">Patients</p>
           <ul className="mt-4 space-y-2 text-sm">
             <li><Link to="/home-collection" className="hover:underline">Book home collection</Link></li>
-            <li><Link to="/reports" className="hover:underline">Report status</Link></li>
+            <li><Link to="/reports" className="hover:underline">Reports</Link></li>
+            <li><span lang="gu" title="Gujarati version coming soon" className="opacity-80">ગુજરાતી</span></li>
             <li><Link to="/privacy" className="hover:underline">Privacy policy</Link></li>
             <li><a href={reviewsLink} target="_blank" rel="noopener noreferrer" className="hover:underline">Google Business Profile</a></li>
           </ul>
         </div>
       </div>
       <div className="border-t border-navy-foreground/15">
-        <p className="container-site py-5 pb-24 text-xs opacity-70 md:pb-5">© {new Date().getFullYear()} {SITE.name}, Ahmedabad.</p>
+        <div className="container-site space-y-2 py-5 pb-24 text-xs opacity-70 md:pb-5">
+          <p>Information on this website is for service information only and does not replace medical advice.</p>
+          <p>© {new Date().getFullYear()} {SITE.name}, Ahmedabad.</p>
+        </div>
       </div>
     </footer>
   );
@@ -204,6 +210,11 @@ export function EnquiryForm({ title, fields, submit, intro }: { title: string; f
       {intro}
       <div className="grid gap-4 sm:grid-cols-2">
         {fields.map((f) => (
+          f.type === "checkbox" ? (
+            <label key={f.name} className="flex items-center gap-3 text-sm font-medium text-navy sm:col-span-2">
+              <input type="checkbox" name={f.name} value="Yes" defaultChecked className="h-5 w-5 accent-primary" /> {f.label}
+            </label>
+          ) : (
           <label key={f.name} className={`block text-sm font-medium text-navy ${f.textarea ? "sm:col-span-2" : ""}`}>
             {f.label}{f.required && <span className="text-accent"> *</span>}
             {f.options ? (
@@ -218,6 +229,7 @@ export function EnquiryForm({ title, fields, submit, intro }: { title: string; f
                 {...(f.type === "tel" ? { pattern: "[0-9+ ]{10,14}", inputMode: "tel" as const } : {})} />
             )}
           </label>
+          )
         ))}
       </div>
       <button type="submit" className="btn btn-accent w-full sm:w-auto">{submit}</button>
@@ -233,6 +245,16 @@ export function PhotoSlot({ label, tone = "soft", className = "" }: { label: str
     <figure className={`relative flex flex-col justify-between border p-5 ${t} ${className}`} aria-label={`Photo placeholder: ${label}`}>
       <span className="text-[0.68rem] font-semibold uppercase tracking-[0.14em] opacity-60">Photo · Replace with real image</span>
       <figcaption className="max-w-[16rem] font-display text-sm font-semibold opacity-80">{label}</figcaption>
+    </figure>
+  );
+}
+
+/** Demo photograph, clearly tagged for replacement with a genuine Sattva photo before launch. */
+export function DemoImage({ src, alt, slot, className = "", w, h, eager = false }: { src: string; alt: string; slot: string; className?: string; w: number; h: number; eager?: boolean }) {
+  return (
+    <figure className={`relative overflow-hidden bg-soft ${className}`} data-placeholder={slot}>
+      <img src={src} alt={alt} width={w} height={h} loading={eager ? "eager" : "lazy"} className="h-full w-full object-cover" />
+      <figcaption className="absolute left-3 top-3 bg-background px-2 py-1 text-[0.62rem] font-semibold uppercase tracking-[0.12em] text-navy">Demo image · replace</figcaption>
     </figure>
   );
 }
