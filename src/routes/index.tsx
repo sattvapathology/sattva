@@ -45,18 +45,19 @@ function HomePage() {
       <section className="bg-navy text-navy-foreground">
         <div className="container-site grid gap-12 py-14 md:py-20 lg:grid-cols-[1.1fr_1fr] lg:items-center lg:gap-16">
           <div>
-            <p className="text-xs font-semibold uppercase tracking-[0.18em] text-navy-foreground/70"><span className="mr-2 inline-block h-2 w-2 bg-accent align-middle" aria-hidden="true" />Sattva Pathology Laboratory · Ahmedabad</p>
-            <h1 className="mt-6 max-w-2xl font-display text-5xl font-extrabold leading-[1.02] tracking-tight text-navy-foreground md:text-7xl">Accurate testing. Trusted care.</h1>
+            <p className="label-x flex items-center gap-3 text-navy-foreground/75"><span className="h-8 w-px bg-accent" aria-hidden="true" />Sattva Pathology Laboratory · Ahmedabad</p>
+            <h1 className="mt-6 max-w-2xl font-display text-5xl font-bold leading-[1.0] tracking-[-0.035em] text-navy-foreground md:text-[5.25rem]">Accurate testing.<br /><span className="text-navy-foreground/70">Trusted care.</span></h1>
             <p className="mt-7 max-w-lg text-lg leading-relaxed text-navy-foreground/80">Pathology testing and convenient home sample collection for patients and families across Ahmedabad.</p>
             <div className="mt-10 flex flex-wrap items-center gap-3">
-              <Link to="/home-collection" className="btn btn-accent h-14 px-8 text-base">Book a Test</Link>
-              <a href={SITE.phoneHref} className="btn btn-invert h-14 px-6 text-base"><Phone className="h-4 w-4" /> Call {SITE.phoneDisplay}</a>
+              <Link to="/home-collection" className="btn btn-accent px-7">Book a Test <ArrowRight className="h-4 w-4" /></Link>
+              <a href={SITE.phoneHref} className="link-u px-3"><Phone className="h-4 w-4" /> Call {SITE.phoneDisplay}</a>
             </div>
-            <a href="#visit" className="group mt-8 inline-flex items-center gap-2 border-b border-navy-foreground/40 pb-1 font-semibold hover:border-navy-foreground">Find our lab <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" /></a>
+            <a href="#visit" className="link-u mt-8 text-navy-foreground/80">Find our lab <ArrowRight className="h-4 w-4" /></a>
           </div>
           <div className="relative pb-20 lg:pb-0">
-            <DemoImage eager src={heroImg} w={1024} h={1280} slot="hero-lab-placeholder" alt="Demo image of a clean pathology laboratory" className="aspect-[4/5] lg:ml-auto lg:max-w-md" />
-            <dl className="absolute bottom-0 left-0 w-64 divide-y bg-background p-6 text-foreground lg:-left-10 lg:bottom-12">
+            <DemoImage eager src={heroImg} w={1024} h={1280} slot="hero-lab-placeholder" alt="Demo image of a clean pathology laboratory" className="aspect-[3/4] lg:ml-auto lg:max-w-[30rem]" />
+            <dl className="absolute bottom-0 left-0 w-64 divide-y rounded-[6px] border border-navy/15 bg-background p-6 text-foreground lg:-left-12 lg:bottom-14" data-r-skip>
+              <p className="label-x mb-3 flex items-center gap-2 text-[0.62rem] text-muted-foreground"><span className="h-1.5 w-1.5 rounded-full bg-accent" aria-hidden="true" />Service status</p>
               {[["Open", "24 Hours"], ["Home Collection", "Available"], ["4.8 ★", "Google Rating"]].map(([a, b]) => (
                 <div key={a} className="flex items-baseline justify-between gap-3 py-2.5 first:pt-0 last:pb-0">
                   <dt className="font-display text-lg font-bold text-navy">{a}</dt><dd className="text-sm text-muted-foreground">{b}</dd>
@@ -104,14 +105,14 @@ function HomePage() {
             <h2 className="font-display text-4xl font-extrabold leading-tight md:text-6xl">Health checks for everyday care.</h2>
             <p className="text-lg text-muted-foreground">Explore preventive health packages designed to help you take a proactive view of your health.</p>
           </div>
-          <div className="mt-12 grid gap-4 lg:grid-cols-12">
-            <article className="grid bg-navy text-navy-foreground md:grid-cols-2 lg:col-span-8">
+          <div className="mt-12 grid gap-4 lg:grid-cols-12" data-stagger>
+            <article className="lift overflow-hidden rounded-[10px] grid bg-navy text-navy-foreground md:grid-cols-2 lg:col-span-8">
               <DemoImage src={packageImg} w={1024} h={1024} slot="package-health-placeholder" alt="Demo image of blood sample tubes" className="aspect-square md:aspect-auto" />
               <PackageBody n="01" name="Basic Health Check" invert />
             </article>
-            <article className="border bg-background lg:col-span-4"><PackageBody n="02" name="Complete Health Check" /></article>
-            <article className="border-t-4 border-accent bg-background lg:col-span-5"><PackageBody n="03" name="Diabetes Profile" /></article>
-            <article className="bg-primary text-primary-foreground lg:col-span-7"><PackageBody n="04" name="Thyroid Profile" invert wide /></article>
+            <article className="lift overflow-hidden rounded-[10px] border bg-background lg:col-span-4"><PackageBody n="02" name="Complete Health Check" /></article>
+            <article className="lift overflow-hidden rounded-[10px] border-t-4 border-accent bg-background lg:col-span-5"><PackageBody n="03" name="Diabetes Profile" /></article>
+            <article className="lift overflow-hidden rounded-[10px] bg-primary text-primary-foreground lg:col-span-7"><PackageBody n="04" name="Thyroid Profile" invert wide /></article>
           </div>
           <Link to="/packages" className="btn btn-primary mt-10">View All Packages</Link>
         </div>
@@ -124,7 +125,7 @@ function HomePage() {
             <h2 className="font-display text-4xl font-extrabold leading-tight md:text-6xl">What brings you here today?</h2>
             <p className="text-lg text-muted-foreground">Find a test or package based on your health need.</p>
           </div>
-          <div className="mt-10 grid gap-3 md:grid-cols-6 md:grid-rows-[16rem_16rem]">
+          <div data-stagger className="mt-10 grid gap-3 md:grid-cols-6 md:grid-rows-[16rem_16rem]">
             <NeedTile to="/tests" title="Routine Blood Tests" className="bg-navy text-navy-foreground md:col-span-3" big />
             <NeedTile to="/tests" title="Diabetes Monitoring" className="bg-soft md:col-span-2" />
             <DemoImage src={sampleImg} w={1024} h={1280} slot="need-sample-placeholder" alt="Demo image of blood sample tubes being labelled" className="hidden md:col-span-1 md:block" />
@@ -144,7 +145,7 @@ function HomePage() {
             <h2 className="font-display text-4xl font-extrabold leading-tight text-navy-foreground md:text-5xl">Care that feels clear, calm, and personal.</h2>
             <DemoImage src={workspaceImg} w={1280} h={960} slot="lab-workspace-placeholder" alt="Demo image of a clean laboratory workspace" className="mt-10 aspect-[4/3]" />
           </div>
-          <ol className="divide-y divide-navy-foreground/15 border-y border-navy-foreground/15 self-center">
+          <ol data-stagger className="divide-y divide-navy-foreground/15 border-y border-navy-foreground/15 self-center">
             {["Hygienic sample handling", "Smooth home collection experience", "Timely report support", "Friendly, supportive staff", "Convenient Ahmedabad location", "Open 24 hours"].map((t, i) => (
               <li key={t} className="grid grid-cols-[4rem_1fr] items-baseline py-6">
                 <span className="font-display text-3xl font-extrabold text-navy-foreground/40">0{i + 1}</span>
@@ -227,8 +228,8 @@ function HomePage() {
             </div>
           </div>
           <div className="grid gap-4 sm:grid-cols-2 lg:col-span-7">
-            <iframe title="Sattva Pathology Laboratory on Google Maps" src={mapsEmbed} loading="lazy" className="h-80 w-full border sm:h-full sm:min-h-[26rem]" referrerPolicy="no-referrer-when-downgrade" />
-            <figure className="flex min-h-64 flex-col justify-between border border-dashed border-navy/30 bg-soft p-5" data-placeholder="visit-lab-placeholder">
+            <iframe title="Sattva Pathology Laboratory on Google Maps" src={mapsEmbed} loading="lazy" className="h-80 w-full rounded-[10px] border grayscale-[0.6] sm:h-full sm:min-h-[26rem]" referrerPolicy="no-referrer-when-downgrade" />
+            <figure className="flex min-h-64 flex-col justify-between rounded-[10px] border border-dashed border-navy/30 bg-soft p-5" data-placeholder="visit-lab-placeholder">
               <span className="text-[0.62rem] font-semibold uppercase tracking-[0.12em] text-muted-foreground">Photo placeholder</span>
               <figcaption className="font-display text-sm font-semibold text-navy">Add a real photo of the Sattva entrance or Dream Square Complex exterior</figcaption>
             </figure>
@@ -246,10 +247,11 @@ function HomePage() {
             </div>
             <a href={reviewsLink} target="_blank" rel="noopener noreferrer" className="btn btn-invert">View all Google Reviews <ArrowUpRight className="h-4 w-4" /></a>
           </div>
-          <div className="mt-14 grid gap-x-12 gap-y-10 md:grid-cols-2">
+          <div className="mt-14 grid gap-x-12 gap-y-10 md:grid-cols-2" data-stagger>
             {REVIEWS.map((r, i) => (
               <figure key={r.name} className={`border-t border-navy-foreground/20 pt-6 ${i % 2 ? "md:mt-12" : ""}`}>
-                <blockquote className={`font-display font-semibold leading-snug ${i === 0 ? "text-2xl md:text-3xl" : "text-xl md:text-2xl"}`}>“{r.text}”</blockquote>
+                <span aria-hidden="true" className="block font-display text-6xl leading-none text-accent">“</span>
+                <blockquote className={`mt-2 font-display font-medium leading-snug tracking-tight ${i === 0 ? "text-2xl md:text-3xl" : "text-xl md:text-2xl"}`}>“{r.text}”</blockquote>
                 <figcaption className="mt-4 text-sm text-navy-foreground/70">— {r.name}, Google review</figcaption>
               </figure>
             ))}
@@ -311,8 +313,8 @@ function Stars() {
 
 function NeedTile({ to, title, className, big }: { to: "/tests" | "/packages"; title: string; className: string; big?: boolean }) {
   return (
-    <Link to={to} className={`group flex min-h-36 flex-col justify-between p-6 md:min-h-0 md:p-7 ${className}`}>
-      <ArrowUpRight className="h-6 w-6 self-end transition-transform group-hover:-translate-y-1 group-hover:translate-x-1" strokeWidth={1.5} />
+    <Link to={to} className={`lift group flex min-h-36 rounded-[10px] flex-col justify-between p-6 md:min-h-0 md:p-7 ${className}`}>
+      <ArrowUpRight className="h-6 w-6 self-end transition-transform group-hover:-translate-y-1 group-hover:translate-x-1 motion-reduce:transform-none" strokeWidth={1.5} />
       <span className={`block font-display font-extrabold leading-tight ${big ? "text-3xl md:text-5xl" : "text-xl md:text-2xl"}`}>{title}</span>
     </Link>
   );
