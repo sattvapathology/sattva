@@ -14,6 +14,7 @@ import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
 import { SiteHeader, SiteFooter, WhatsAppFloat, MobileBookBar } from "@/components/site";
 import { SITE } from "@/lib/site";
+import { useReveal } from "@/hooks/use-reveal";
 
 function NotFoundComponent() {
   return (
@@ -112,6 +113,7 @@ function RootShell({ children }: { children: ReactNode }) {
 
 function RootComponent() {
   const { queryClient } = Route.useRouteContext();
+  useReveal();
   return (
     <QueryClientProvider client={queryClient}>
       <SiteHeader />

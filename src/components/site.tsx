@@ -1,6 +1,6 @@
 import { Link } from "@tanstack/react-router";
 import { useState, type ReactNode } from "react";
-import { Phone, MessageCircle, Menu, X, MapPin, Clock, ChevronDown } from "lucide-react";
+import { Phone, MessageCircle, Menu, X, MapPin, Clock, ArrowRight, Plus } from "lucide-react";
 import { SITE, waLink, reviewsLink } from "@/lib/site";
 
 const NAV = [
@@ -52,41 +52,45 @@ export function SiteHeader() {
     <>
     <UtilityBar />
     <header className="sticky top-0 z-40 border-b bg-background">
-      <div className="container-site flex h-16 items-center justify-between gap-4 md:h-20">
+      <div className="container-site flex h-16 items-center justify-between gap-6 md:h-[4.5rem]">
         <Logo />
-        <nav className="hidden items-center gap-4 xl:flex" aria-label="Main">
+        <nav className="hidden items-center gap-7 xl:flex" aria-label="Main">
           {NAV.map((n) => (
-            <Link key={n.to} to={n.to} className="text-sm font-medium text-foreground hover:text-primary" activeOptions={{ exact: n.to === "/" }} activeProps={{ className: "text-primary" }}>
+            <Link key={n.to} to={n.to} className="nav-u text-[0.92rem] font-medium text-navy" activeOptions={{ exact: n.to === "/" }}>
               {n.label}
             </Link>
           ))}
         </nav>
-        <div className="hidden items-center gap-5 md:flex">
-          <Link to="/reports" className="text-sm text-muted-foreground hover:text-primary">Reports</Link>
+        <div className="hidden items-center gap-6 md:flex">
+          <Link to="/reports" className="link-u text-sm font-medium text-muted-foreground hover:text-navy">Reports</Link>
+          <a href={SITE.phoneHref} className="hidden items-center gap-2 text-sm font-semibold text-navy hover:text-primary lg:inline-flex"><Phone className="h-4 w-4" /> {SITE.phoneDisplay}</a>
           <Link to="/home-collection" className="btn btn-accent">Book Home Collection</Link>
         </div>
-        <button className="btn btn-outline px-3 xl:hidden" onClick={() => setOpen(!open)} aria-label="Toggle menu" aria-expanded={open}>
-          {open ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+        <button className="grid h-12 w-12 place-items-center xl:hidden" onClick={() => setOpen(true)} aria-label="Open menu" aria-expanded={open}>
+          <Menu className="h-6 w-6 text-navy" />
         </button>
       </div>
-      {open && (
-        <div className="border-t bg-background xl:hidden">
-          <nav className="container-site flex flex-col py-3" aria-label="Mobile">
-            {NAV.map((n) => (
-              <Link key={n.to} to={n.to} onClick={() => setOpen(false)} className="border-b py-3 font-medium text-navy last:border-0">
-                {n.label}
-              </Link>
-            ))}
-            <Link to="/reports" onClick={() => setOpen(false)} className="border-t py-3 text-sm text-muted-foreground">Reports</Link>
-            <div className="grid grid-cols-2 gap-2 pt-3">
-              <a href={SITE.phoneHref} className="btn btn-outline"><Phone className="h-4 w-4" /> Call</a>
-              <a href={waLink()} target="_blank" rel="noopener noreferrer" className="btn btn-outline"><MessageCircle className="h-4 w-4" /> WhatsApp</a>
-              <Link to="/home-collection" onClick={() => setOpen(false)} className="btn btn-accent col-span-2">Book Home Collection</Link>
-            </div>
-          </nav>
-        </div>
-      )}
     </header>
+    {open && (
+      <div className="fixed inset-0 z-[60] flex flex-col bg-navy text-navy-foreground xl:hidden" role="dialog" aria-modal="true" aria-label="Menu">
+        <div className="container-site flex h-16 items-center justify-between">
+          <Logo invert />
+          <button className="grid h-12 w-12 place-items-center" onClick={() => setOpen(false)} aria-label="Close menu" autoFocus><X className="h-6 w-6" /></button>
+        </div>
+        <nav className="container-site flex flex-1 flex-col overflow-y-auto pt-6" aria-label="Mobile">
+          {[...NAV, { to: "/reports", label: "Reports" } as const].map((n, i) => (
+            <Link key={n.to} to={n.to} onClick={() => setOpen(false)} className="flex items-baseline gap-4 border-b border-navy-foreground/15 py-4 font-display text-2xl font-bold">
+              <span className="w-6 text-xs font-semibold text-navy-foreground/50">0{i + 1}</span>{n.label}
+            </Link>
+          ))}
+        </nav>
+        <div className="container-site grid grid-cols-2 gap-3 py-6">
+          <a href={SITE.phoneHref} className="btn btn-invert"><Phone className="h-4 w-4" /> Call</a>
+          <a href={waLink()} target="_blank" rel="noopener noreferrer" className="btn btn-invert"><MessageCircle className="h-4 w-4" /> WhatsApp</a>
+          <Link to="/home-collection" onClick={() => setOpen(false)} className="btn btn-accent col-span-2">Book Home Collection</Link>
+        </div>
+      </div>
+    )}
     </>
   );
 }
@@ -94,10 +98,16 @@ export function SiteHeader() {
 export function SiteFooter() {
   return (
     <footer className="bg-navy text-navy-foreground">
+      <div className="container-site border-b border-navy-foreground/15 py-14 md:py-20">
+        <p className="label-x text-navy-foreground/60">Open 24 Hours · Ahmedabad</p>
+        <div className="mt-5 flex flex-wrap items-end justify-between gap-8">
+          <p className="max-w-2xl font-display text-4xl font-extrabold leading-[1.05] tracking-tight md:text-6xl">{SITE.tagline}</p>
+          <Link to="/home-collection" className="btn btn-accent">Book Home Collection <ArrowRight className="h-4 w-4" /></Link>
+        </div>
+      </div>
       <div className="container-site grid gap-10 py-14 md:grid-cols-4">
         <div className="md:col-span-2">
           <Logo invert />
-          <p className="mt-3 opacity-80">{SITE.tagline}</p>
           <ul className="mt-6 space-y-2 text-sm opacity-90">
             <li className="flex gap-2"><MapPin className="mt-0.5 h-4 w-4 shrink-0" />{SITE.address}</li>
             <li className="flex gap-2"><Phone className="mt-0.5 h-4 w-4" /><a href={SITE.phoneHref}>{SITE.phoneDisplay}</a></li>
@@ -105,13 +115,13 @@ export function SiteFooter() {
           </ul>
         </div>
         <div>
-          <p className="text-sm font-semibold uppercase tracking-wider opacity-70">Explore</p>
+          <p className="label-x opacity-60">Explore</p>
           <ul className="mt-4 space-y-2 text-sm">
             {NAV.map((n) => <li key={n.to}><Link to={n.to} className="hover:underline">{n.label}</Link></li>)}
           </ul>
         </div>
         <div>
-          <p className="text-sm font-semibold uppercase tracking-wider opacity-70">Patients</p>
+          <p className="label-x opacity-60">Patients</p>
           <ul className="mt-4 space-y-2 text-sm">
             <li><Link to="/home-collection" className="hover:underline">Book home collection</Link></li>
             <li><Link to="/reports" className="hover:underline">Reports</Link></li>
@@ -177,14 +187,14 @@ export function CtaBand() {
 
 export function FaqList({ items }: { items: readonly (readonly [string, string])[] }) {
   return (
-    <div className="divide-y border-y">
+    <div className="divide-y divide-navy/15 border-y border-navy/15" data-stagger>
       {items.map(([q, a]) => (
-        <details key={q} className="group py-5">
-          <summary className="flex cursor-pointer list-none items-center justify-between gap-4 font-display text-lg font-bold text-navy">
+        <details key={q} className="group py-6">
+          <summary className="flex cursor-pointer list-none items-center justify-between gap-6 font-display text-lg font-bold text-navy transition-colors hover:text-primary md:text-xl">
             {q}
-            <ChevronDown className="h-5 w-5 shrink-0 text-primary transition-transform group-open:rotate-180" />
+            <span className="grid h-9 w-9 shrink-0 place-items-center rounded-full border border-navy/20 transition-transform duration-300 group-open:rotate-45"><Plus className="h-4 w-4" /></span>
           </summary>
-          <p className="mt-3 text-muted-foreground">{a}</p>
+          <p className="mt-3 max-w-2xl text-muted-foreground">{a}</p>
         </details>
       ))}
     </div>
@@ -252,9 +262,9 @@ export function PhotoSlot({ label, tone = "soft", className = "" }: { label: str
 /** Demo photograph, clearly tagged for replacement with a genuine Sattva photo before launch. */
 export function DemoImage({ src, alt, slot, className = "", w, h, eager = false }: { src: string; alt: string; slot: string; className?: string; w: number; h: number; eager?: boolean }) {
   return (
-    <figure className={`relative overflow-hidden bg-soft ${className}`} data-placeholder={slot}>
+    <figure className={`img-hover relative overflow-hidden rounded-[10px] bg-soft ${className}`} data-placeholder={slot}>
       <img src={src} alt={alt} width={w} height={h} loading={eager ? "eager" : "lazy"} className="h-full w-full object-cover" />
-      <figcaption className="absolute left-3 top-3 bg-background px-2 py-1 text-[0.62rem] font-semibold uppercase tracking-[0.12em] text-navy">Demo image · replace</figcaption>
+      <figcaption className="absolute left-3 top-3 rounded-[4px] bg-background px-2 py-1 text-[0.62rem] font-semibold uppercase tracking-[0.12em] text-navy">Demo image · replace</figcaption>
     </figure>
   );
 }
