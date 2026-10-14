@@ -41,7 +41,7 @@ export function MobileBookBar() {
   return (
     <div className="fixed inset-x-0 bottom-0 z-40 grid grid-cols-[auto_1fr] gap-2 border-t bg-background p-3 md:hidden">
       <a href={SITE.phoneHref} className="btn btn-outline px-4" aria-label={`Call ${SITE.phoneDisplay}`}><Phone className="h-4 w-4" /> Call</a>
-      <Link to="/home-collection" className="btn btn-accent">Book Home Collection</Link>
+      <Link to="/home-collection" className="btn btn-accent whitespace-nowrap">Book Home Collection</Link>
     </div>
   );
 }
@@ -54,17 +54,17 @@ export function SiteHeader() {
     <header className="sticky top-0 z-40 border-b bg-background">
       <div className="container-site flex h-16 items-center justify-between gap-6 md:h-[4.5rem]">
         <Logo />
-        <nav className="hidden items-center gap-7 xl:flex" aria-label="Main">
+        <nav className="hidden items-center gap-5 xl:flex" aria-label="Main">
           {NAV.map((n) => (
-            <Link key={n.to} to={n.to} className="nav-u text-[0.92rem] font-medium text-navy" activeOptions={{ exact: n.to === "/" }}>
+            <Link key={n.to} to={n.to} className="nav-u whitespace-nowrap text-[0.9rem] font-medium text-navy" activeOptions={{ exact: n.to === "/" }}>
               {n.label}
             </Link>
           ))}
         </nav>
         <div className="hidden items-center gap-6 md:flex">
-          <Link to="/reports" className="link-u text-sm font-medium text-muted-foreground hover:text-navy">Reports</Link>
-          <a href={SITE.phoneHref} className="hidden items-center gap-2 text-sm font-semibold text-navy hover:text-primary lg:inline-flex"><Phone className="h-4 w-4" /> {SITE.phoneDisplay}</a>
-          <Link to="/home-collection" className="btn btn-accent">Book Home Collection</Link>
+          <Link to="/reports" className="link-u whitespace-nowrap text-sm font-medium text-muted-foreground hover:text-navy">Reports</Link>
+          <a href={SITE.phoneHref} className="hidden items-center gap-2 whitespace-nowrap text-sm font-semibold text-navy hover:text-primary 2xl:inline-flex"><Phone className="h-4 w-4" /> {SITE.phoneDisplay}</a>
+          <Link to="/home-collection" className="btn btn-accent whitespace-nowrap">Book Home Collection</Link>
         </div>
         <button className="grid h-12 w-12 place-items-center xl:hidden" onClick={() => setOpen(true)} aria-label="Open menu" aria-expanded={open}>
           <Menu className="h-6 w-6 text-navy" />
