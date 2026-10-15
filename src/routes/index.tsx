@@ -2,6 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { ArrowRight, ArrowUpRight, Phone, MessageCircle, Star } from "lucide-react";
 import { SITE, FAQS, REVIEWS, waLink, mapsEmbed, mapsDirections, reviewsLink } from "@/lib/site";
 import { FaqList, DemoImage, EnquiryForm } from "@/components/site";
+import { PackagesSection, PopularTestsSection, ReviewsSection } from "@/components/home-sections";
 import { pageHead } from "@/lib/seo";
 import heroImg from "@/assets/hero-lab-placeholder.jpg";
 import receptionImg from "@/assets/reception-placeholder.jpg";
@@ -99,24 +100,10 @@ function HomePage() {
       </section>
 
       {/* 6 PACKAGES */}
-      <section className="border-t bg-soft">
-        <div className="container-site py-20 md:py-28">
-          <div className="grid gap-6 lg:grid-cols-[1.4fr_1fr] lg:items-end">
-            <h2 className="font-display text-4xl font-extrabold leading-tight md:text-6xl">Health checks for everyday care.</h2>
-            <p className="text-lg text-muted-foreground">Explore preventive health packages designed to help you take a proactive view of your health.</p>
-          </div>
-          <div className="mt-12 grid gap-4 lg:grid-cols-12" data-stagger>
-            <article className="lift overflow-hidden rounded-[10px] grid bg-navy text-navy-foreground md:grid-cols-2 lg:col-span-8">
-              <DemoImage src={packageImg} w={1024} h={1024} slot="package-health-placeholder" alt="Demo image of blood sample tubes" className="aspect-square md:aspect-auto" />
-              <PackageBody n="01" name="Basic Health Check" invert />
-            </article>
-            <article className="lift overflow-hidden rounded-[10px] border bg-background lg:col-span-4"><PackageBody n="02" name="Complete Health Check" /></article>
-            <article className="lift overflow-hidden rounded-[10px] border-t-4 border-accent bg-background lg:col-span-5"><PackageBody n="03" name="Diabetes Profile" /></article>
-            <article className="lift overflow-hidden rounded-[10px] bg-primary text-primary-foreground lg:col-span-7"><PackageBody n="04" name="Thyroid Profile" invert wide /></article>
-          </div>
-          <Link to="/packages" className="btn btn-primary mt-10">View All Packages</Link>
-        </div>
-      </section>
+      <PackagesSection />
+
+      {/* 6b POPULAR TESTS */}
+      <PopularTestsSection />
 
       {/* 7 FIND BY NEED */}
       <section className="bg-background">
@@ -238,26 +225,7 @@ function HomePage() {
       </section>
 
       {/* 12 REVIEWS */}
-      <section className="bg-navy text-navy-foreground">
-        <div className="container-site py-20 md:py-28">
-          <div className="flex flex-wrap items-end justify-between gap-6">
-            <div>
-              <p className="flex items-center gap-2 text-sm text-navy-foreground/70"><Stars /> 4.8 from 186+ Google reviews</p>
-              <h2 className="mt-4 font-display text-4xl font-extrabold leading-tight text-navy-foreground md:text-5xl">Trusted by patients in Ahmedabad.</h2>
-            </div>
-            <a href={reviewsLink} target="_blank" rel="noopener noreferrer" className="btn btn-invert">View all Google Reviews <ArrowUpRight className="h-4 w-4" /></a>
-          </div>
-          <div className="mt-14 grid gap-x-12 gap-y-10 md:grid-cols-2" data-stagger>
-            {REVIEWS.map((r, i) => (
-              <figure key={r.name} className={`border-t border-navy-foreground/20 pt-6 ${i % 2 ? "md:mt-12" : ""}`}>
-                <span aria-hidden="true" className="block font-display text-6xl leading-none text-accent">“</span>
-                <blockquote className={`mt-2 font-display font-medium leading-snug tracking-tight ${i === 0 ? "text-2xl md:text-3xl" : "text-xl md:text-2xl"}`}>“{r.text}”</blockquote>
-                <figcaption className="mt-4 text-sm text-navy-foreground/70">— {r.name}, Google review</figcaption>
-              </figure>
-            ))}
-          </div>
-        </div>
-      </section>
+      <ReviewsSection />
 
       {/* 13 FAQ */}
       <section className="bg-soft">

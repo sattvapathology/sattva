@@ -10,6 +10,8 @@ export const SITE = {
   url: "https://sattvapathology.in",
   rating: 4.8,
   reviews: 186,
+  /** Paste the real Google Business Profile URL here once confirmed; falls back to a Maps search. */
+  googleListingUrl: "",
   mapsQuery: "Sattva Pathology Laboratory, Dream Square Complex, Ahmedabad 380013",
 };
 
