@@ -259,12 +259,3 @@ export function PhotoSlot({ label, tone = "soft", className = "" }: { label: str
   );
 }
 
-/** Demo photograph, clearly tagged for replacement with a genuine Sattva photo before launch. */
-export function DemoImage({ src, alt, slot, className = "", w, h, eager = false }: { src: string; alt: string; slot: string; className?: string; w: number; h: number; eager?: boolean }) {
-  return (
-    <figure className={`img-hover relative overflow-hidden rounded-[10px] bg-soft ${className}`} data-placeholder={slot}>
-      <img src={src} alt={alt} width={w} height={h} loading={eager ? "eager" : "lazy"} className="h-full w-full object-cover" />
-      <figcaption className="absolute left-3 top-3 rounded-[4px] bg-background px-2 py-1 text-[0.62rem] font-semibold uppercase tracking-[0.12em] text-navy">Demo image · replace</figcaption>
-    </figure>
-  );
-}

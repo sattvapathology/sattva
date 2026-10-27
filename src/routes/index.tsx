@@ -1,15 +1,11 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { ArrowRight, ArrowUpRight, Phone, MessageCircle, Star } from "lucide-react";
 import { SITE, FAQS, REVIEWS, waLink, mapsEmbed, mapsDirections, reviewsLink } from "@/lib/site";
-import { FaqList, DemoImage, EnquiryForm } from "@/components/site";
+import { FaqList, EnquiryForm } from "@/components/site";
 import { PackagesSection, PopularTestsSection, ReviewsSection } from "@/components/home-sections";
 import { pageHead } from "@/lib/seo";
-import heroImg from "@/assets/hero-lab-placeholder.jpg";
-import receptionImg from "@/assets/reception-placeholder.jpg";
-import sampleImg from "@/assets/sample-collection-placeholder.jpg";
-import workspaceImg from "@/assets/lab-workspace-placeholder.jpg";
-import homeImg from "@/assets/home-collection-placeholder.jpg";
-import packageImg from "@/assets/package-health-placeholder.jpg";
+import { SattvaImage } from "@/components/sattva-image";
+import { IMAGE_PLACEMENTS } from "@/lib/images";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -30,7 +26,7 @@ export const Route = createFileRoute("/")({
   component: HomePage,
 });
 
-/* CLIENT CONFIRMATION REQUIRED before launch: all "Add …" placeholders, demo images,
+/* CLIENT CONFIRMATION REQUIRED before launch: all "Add …" placeholders, genuine photos,
    package inclusions/prices, report process, team details and service areas. */
 
 const Placeholder = ({ children, invert = false }: { children: string; invert?: boolean }) => (
@@ -56,7 +52,7 @@ function HomePage() {
             <a href="#visit" className="link-u mt-8 text-navy-foreground/80">Find our lab <ArrowRight className="h-4 w-4" /></a>
           </div>
           <div className="relative pb-20 lg:pb-0">
-            <DemoImage eager src={heroImg} w={1024} h={1280} slot="hero-lab-placeholder" alt="Demo image of a clean pathology laboratory" className="aspect-[3/4] lg:ml-auto lg:max-w-[30rem]" />
+            <SattvaImage eager image={IMAGE_PLACEMENTS.hero} tone="navy" className="aspect-[3/4] lg:ml-auto lg:max-w-[30rem]" />
             <dl className="absolute bottom-0 left-0 w-64 divide-y rounded-[6px] border border-navy/15 bg-background p-6 text-foreground lg:-left-12 lg:bottom-14" data-r-skip>
               <p className="label-x mb-3 flex items-center gap-2 text-[0.62rem] text-muted-foreground"><span className="h-1.5 w-1.5 rounded-full bg-accent" aria-hidden="true" />Service status</p>
               {[["Open", "24 Hours"], ["Home Collection", "Available"], ["4.8 ★", "Google Rating"]].map(([a, b]) => (
@@ -84,7 +80,7 @@ function HomePage() {
       {/* 5 ABOUT */}
       <section className="bg-background">
         <div className="container-site grid gap-12 py-20 md:py-28 lg:grid-cols-2 lg:items-center lg:gap-20">
-          <DemoImage src={receptionImg} w={1280} h={960} slot="about-lab-placeholder" alt="Demo image of a calm laboratory reception" className="aspect-[4/3]" />
+          <SattvaImage image={IMAGE_PLACEMENTS.about} className="aspect-[4/3]" />
           <div>
             <p className="eyebrow">About Sattva</p>
             <h2 className="mt-4 font-display text-4xl font-extrabold leading-tight md:text-5xl">Pathology care built around patients.</h2>
@@ -112,11 +108,9 @@ function HomePage() {
             <h2 className="font-display text-4xl font-extrabold leading-tight md:text-6xl">What brings you here today?</h2>
             <p className="text-lg text-muted-foreground">Find a test or package based on your health need.</p>
           </div>
-          <div data-stagger className="mt-10 grid gap-3 md:grid-cols-6 md:grid-rows-[16rem_16rem]">
-            <NeedTile to="/tests" title="Routine Blood Tests" className="bg-navy text-navy-foreground md:col-span-3" big />
-            <NeedTile to="/tests" title="Diabetes Monitoring" className="bg-soft md:col-span-2" />
-            <DemoImage src={sampleImg} w={1024} h={1280} slot="need-sample-placeholder" alt="Demo image of blood sample tubes being labelled" className="hidden md:col-span-1 md:block" />
-            <DemoImage src={workspaceImg} w={1280} h={960} slot="need-lab-placeholder" alt="Demo image of a laboratory bench" className="hidden md:col-span-2 md:block" />
+          <div data-stagger className="mt-10 grid gap-3 md:grid-cols-3 md:auto-rows-[16rem]">
+            <NeedTile to="/tests" title="Routine Blood Tests" className="bg-navy text-navy-foreground md:col-span-1" big />
+            <NeedTile to="/tests" title="Diabetes Monitoring" className="bg-soft md:col-span-1" />
             <NeedTile to="/tests" title="Thyroid Tests" className="border bg-background md:col-span-1" />
             <NeedTile to="/tests" title="Fever & Infection Tests" className="bg-primary text-primary-foreground md:col-span-1" />
             <NeedTile to="/tests" title="Vitamin Tests" className="bg-soft md:col-span-1" />
@@ -130,7 +124,7 @@ function HomePage() {
         <div className="container-site grid gap-12 py-20 md:py-28 lg:grid-cols-2 lg:gap-20">
           <div>
             <h2 className="font-display text-4xl font-extrabold leading-tight text-navy-foreground md:text-5xl">Care that feels clear, calm, and personal.</h2>
-            <DemoImage src={workspaceImg} w={1280} h={960} slot="lab-workspace-placeholder" alt="Demo image of a clean laboratory workspace" className="mt-10 aspect-[4/3]" />
+            <SattvaImage image={IMAGE_PLACEMENTS.why} tone="navy" className="mt-10 aspect-[4/3]" />
           </div>
           <ol data-stagger className="divide-y divide-navy-foreground/15 border-y border-navy-foreground/15 self-center">
             {["Hygienic sample handling", "Smooth home collection experience", "Timely report support", "Friendly, supportive staff", "Convenient Ahmedabad location", "Open 24 hours"].map((t, i) => (
@@ -148,14 +142,10 @@ function HomePage() {
         <div className="container-site py-20 md:py-28">
           <h2 className="max-w-3xl font-display text-4xl font-extrabold leading-tight md:text-5xl">A comfortable experience from collection to report.</h2>
           <div className="mt-12 grid gap-4 md:grid-cols-12">
-            {[
-              { src: receptionImg, w: 1280, h: 960, slot: "reception-placeholder", cap: "Patient-friendly reception", cls: "md:col-span-7 aspect-[4/3]" },
-              { src: sampleImg, w: 1024, h: 1280, slot: "sample-collection-placeholder", cap: "Professional sample collection", cls: "md:col-span-5 aspect-[4/5] md:aspect-auto" },
-              { src: heroImg, w: 1024, h: 1280, slot: "lab-interior-placeholder", cap: "Clean diagnostic workspace", cls: "md:col-span-12 aspect-[16/9] md:aspect-[21/8]" },
-            ].map((g) => (
-              <div key={g.slot} className={g.cls.split(" ").filter((c) => c.startsWith("md:col")).join(" ")}>
-                <DemoImage src={g.src} w={g.w} h={g.h} slot={g.slot} alt={`Demo image: ${g.cap}`} className={g.cls.split(" ").filter((c) => !c.startsWith("md:col")).join(" ") + " w-full"} />
-                <p className="mt-3 border-t pt-3 font-display font-semibold text-navy">{g.cap}</p>
+            {IMAGE_PLACEMENTS.gallery.map((image, i) => (
+              <div key={image} className={i === 0 ? "md:col-span-7" : i === 1 ? "md:col-span-5" : "md:col-span-12"}>
+                <SattvaImage image={image} className={i === 0 ? "aspect-[4/3]" : i === 1 ? "aspect-[4/5] md:aspect-[20/21]" : "aspect-[16/9] md:aspect-[21/8]"} />
+                <p className="mt-3 border-t pt-3 font-display font-semibold text-navy">{["Lab entrance with Sattva signage", "Reception", "Equipment close-up"][i]}</p>
               </div>
             ))}
           </div>
@@ -164,9 +154,8 @@ function HomePage() {
 
       {/* 10 HOME COLLECTION */}
       <section id="home-collection" className="border-t bg-soft">
-        <div className="grid lg:grid-cols-2">
-          <DemoImage src={homeImg} w={1280} h={1024} slot="home-collection-placeholder" alt="Demo image of a home sample collection kit on a dining table" className="aspect-[4/3] lg:aspect-auto lg:min-h-full" />
-          <div className="px-5 py-16 md:px-12 md:py-24 lg:px-16">
+        <div className="container-site grid gap-10 py-16 md:py-24 lg:grid-cols-2 lg:gap-16">
+          <div>
             <p className="eyebrow">Home sample collection</p>
             <h2 className="mt-4 font-display text-4xl font-extrabold leading-tight md:text-5xl">Testing from the comfort of home.</h2>
             <p className="mt-5 max-w-lg text-lg text-muted-foreground">Request a home sample collection appointment and our team will contact you to confirm availability, location, and timing.</p>
@@ -175,7 +164,8 @@ function HomePage() {
                 <li key={s}><span className="font-display text-sm font-bold text-accent">0{i + 1}</span><p className="mt-2 font-display font-bold leading-snug text-navy">{s}</p></li>
               ))}
             </ol>
-            <div className="mt-10 bg-background p-6 md:p-8">
+          </div>
+          <div className="self-start bg-background p-6 md:p-8">
               <EnquiryForm
                 title="Home Collection Request"
                 submit="Request Home Collection"
@@ -190,7 +180,6 @@ function HomePage() {
                   { name: "home", label: "I need home sample collection", type: "checkbox" },
                 ]}
               />
-            </div>
           </div>
         </div>
       </section>
@@ -216,10 +205,7 @@ function HomePage() {
           </div>
           <div className="grid gap-4 sm:grid-cols-2 lg:col-span-7">
             <iframe title="Sattva Pathology Laboratory on Google Maps" src={mapsEmbed} loading="lazy" className="h-80 w-full rounded-[10px] border grayscale-[0.6] sm:h-full sm:min-h-[26rem]" referrerPolicy="no-referrer-when-downgrade" />
-            <figure className="flex min-h-64 flex-col justify-between rounded-[10px] border border-dashed border-navy/30 bg-soft p-5" data-placeholder="visit-lab-placeholder">
-              <span className="text-[0.62rem] font-semibold uppercase tracking-[0.12em] text-muted-foreground">Photo placeholder</span>
-              <figcaption className="font-display text-sm font-semibold text-navy">Add a real photo of the Sattva entrance or Dream Square Complex exterior</figcaption>
-            </figure>
+            <SattvaImage image={IMAGE_PLACEMENTS.visit} className="aspect-[4/3] sm:aspect-[3/4] sm:self-start" />
           </div>
         </div>
       </section>
