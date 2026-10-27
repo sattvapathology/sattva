@@ -18,7 +18,7 @@ export function SattvaImage({ image, className = "", eager = false, tone = "soft
           onError={() => setFailedSrc(src)} className="absolute inset-0 h-full w-full"
           style={{ objectFit: config.fit, objectPosition: config.position }} />
       ) : (
-        <div className="absolute inset-0 flex flex-col justify-between p-6 md:p-8">
+        <div className="absolute inset-0 flex flex-col gap-8 p-6 md:p-8">
           <div className="flex items-center justify-between gap-3 border-b border-current/15 pb-4">
             <span className="text-xs font-semibold opacity-60">Sattva · Ahmedabad</span>
             <ImageIcon className="h-5 w-5 shrink-0 opacity-40" aria-hidden="true" />
