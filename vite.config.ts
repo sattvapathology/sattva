@@ -5,6 +5,8 @@ import { tanstackStart } from "@tanstack/react-start/plugin/vite";
 import { nitro } from "nitro/vite";
 import viteReact from "@vitejs/plugin-react";
 
+const isNetlify = typeof process !== "undefined" && Boolean(process.env["NETLIFY"]);
+
 export default defineConfig({
   plugins: [
     tailwindcss(),
@@ -12,9 +14,11 @@ export default defineConfig({
     tanstackStart({
       server: { entry: "server" },
     }),
-    nitro({
-      defaultPreset: "cloudflare-module",
-    }),
+    nitro(
+      isNetlify
+        ? { preset: "netlify" }
+        : { defaultPreset: "cloudflare-module" },
+    ),
     viteReact(),
   ],
 });
