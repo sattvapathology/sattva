@@ -1,0 +1,29 @@
+{
+  "hosting": {
+    "public": ".output/public",
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**"
+    ],
+    "cleanUrls": true,
+    "trailingSlash": false,
+    "redirects": [
+      {
+        "source": "/full-body-checkup",
+        "destination": "/packages",
+        "type": 301
+      },
+      {
+        "source": "/urine-routine",
+        "destination": "/tests/urine-analysis",
+        "type": 301
+      },
+      {
+        "source": "/blood-sugar",
+        "destination": "/tests/fasting-blood-sugar",
+        "type": 301
+      }
+    ]
+  }
+}
