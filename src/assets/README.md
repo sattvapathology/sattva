@@ -8,4 +8,4 @@ Keys: `hero`, `logo`, `logoText`, `logoSymbol`, `primaryLogo`, `buildingExterior
 
 Adjust `fit` (`contain` or `cover`) and `position` (for example `center`, `50% 30%`) in the same entry. Signage photos default to `contain` to display the full image. These settings do not change the reserved frame size. `IMAGE_PLACEMENTS` chooses which named photo appears in each section; the hero uses `hero` (`src/assets/hero.png`), About uses `logo` (`src/assets/sattva-logo-text.png`).
 
-Local JPG, JPEG, PNG, WebP, AVIF and SVG files are supported, as are CDN URLs and asset-pointer paths such as `src/assets/reception.jpg.asset.json`. Uploaded/downloaded media managed by Lovable should use the asset-pointer flow.
+Local JPG, JPEG, PNG, WebP, AVIF and SVG files are supported, as are CDN URLs and asset-pointer paths such as `src/assets/reception.jpg.asset.json`.

@@ -8,10 +8,9 @@ import {
   Scripts,
   type ErrorComponentProps,
 } from "@tanstack/react-router";
-import { useEffect, type ReactNode } from "react";
+import { type ReactNode } from "react";
 
 import appCss from "../styles.css?url";
-import { reportLovableError } from "../lib/lovable-error-reporting";
 import { SiteHeader, SiteFooter, WhatsAppFloat, MobileBookBar } from "@/components/site";
 import { SITE } from "@/lib/site";
 import { useReveal } from "@/hooks/use-reveal";
@@ -32,9 +31,6 @@ function NotFoundComponent() {
 function ErrorComponent({ error, reset }: ErrorComponentProps) {
   console.error(error);
   const router = useRouter();
-  useEffect(() => {
-    reportLovableError(error, { boundary: "tanstack_root_error_component" });
-  }, [error]);
   return (
     <div className="container-site py-24 text-center">
       <h1 className="text-xl font-semibold">This page didn't load</h1>
