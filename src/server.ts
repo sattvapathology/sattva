@@ -44,9 +44,35 @@ function isH3SwallowedErrorBody(body: string): boolean {
   }
 }
 
+/**
+ * 301 Permanent redirects for legacy test and package paths.
+ * Returns true HTTP 301 redirects to ensure search engines update indexing.
+ */
+export const LEGACY_301_REDIRECTS: Record<string, string> = {
+  "/full-body-checkup": "/packages",
+  "/urine-routine": "/tests/urine-analysis",
+  "/blood-sugar": "/tests/fasting-blood-sugar",
+  "/tests/full-body-checkup": "/packages",
+  "/tests/urine-routine": "/tests/urine-analysis",
+  "/tests/blood-sugar": "/tests/fasting-blood-sugar",
+};
+
 export default {
   async fetch(request: Request, env: unknown, ctx: unknown) {
     try {
+      const url = new URL(request.url);
+      const normalizedPath = url.pathname.toLowerCase().replace(/\/+$/, "") || "/";
+      const target = LEGACY_301_REDIRECTS[normalizedPath];
+
+      if (target) {
+        return new Response(null, {
+          status: 301,
+          headers: {
+            Location: `${target}${url.search}`,
+          },
+        });
+      }
+
       const handler = await getServerEntry();
       const response = await handler.fetch(request, env, ctx);
       return await normalizeCatastrophicSsrResponse(response);

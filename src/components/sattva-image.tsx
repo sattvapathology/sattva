@@ -2,21 +2,41 @@ import { useState } from "react";
 import { Image as ImageIcon } from "lucide-react";
 import { IMAGES, resolveImagePath, type ImageKey } from "@/lib/images";
 
-export function SattvaImage({ image, className = "", eager = false, tone = "soft" }: {
-  image: ImageKey; className?: string; eager?: boolean; tone?: "soft" | "navy";
+export function SattvaImage({
+  image,
+  className = "",
+  eager = false,
+  tone = "soft",
+}: {
+  image: ImageKey;
+  className?: string;
+  eager?: boolean;
+  tone?: "soft" | "navy";
 }) {
   const config = IMAGES[image];
-  const src = resolveImagePath(config.src);
+  const src =
+    resolveImagePath(config.src) ||
+    (typeof config.src === "string" && config.src.trim().length > 0
+      ? config.src.trim()
+      : undefined);
   const [failedSrc, setFailedSrc] = useState<string>();
   const available = Boolean(src && src !== failedSrc);
   return (
-    <figure data-image={image} data-image-state={available ? "photo" : "placeholder"}
+    <figure
+      data-image={image}
+      data-image-state={available ? "photo" : "placeholder"}
       aria-label={available ? config.alt : `Photo placeholder: ${config.label}`}
-      className={`relative isolate overflow-hidden rounded-[10px] border ${tone === "navy" ? "border-navy-foreground/20 bg-navy text-navy-foreground" : "bg-soft text-navy"} ${className}`}>
+      className={`relative isolate overflow-hidden rounded-[10px] border ${tone === "navy" ? "border-navy-foreground/20 bg-navy text-navy-foreground" : "bg-soft text-navy"} ${className}`}
+    >
       {available ? (
-        <img src={src} alt={config.alt} loading={eager ? "eager" : "lazy"}
-          onError={() => setFailedSrc(src)} className="absolute inset-0 h-full w-full"
-          style={{ objectFit: config.fit, objectPosition: config.position }} />
+        <img
+          src={src}
+          alt={config.alt}
+          loading={eager ? "eager" : "lazy"}
+          onError={() => setFailedSrc(src)}
+          className={`absolute inset-0 h-full w-full ${config.padding ?? ""}`}
+          style={{ objectFit: config.fit, objectPosition: config.position }}
+        />
       ) : (
         <div className="absolute inset-0 flex flex-col gap-8 p-6 md:p-8">
           <div className="flex items-center justify-between gap-3 border-b border-current/15 pb-4">

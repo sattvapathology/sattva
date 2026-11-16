@@ -1,4 +1,5 @@
 # Homepage refinement
+
 - [x] Replace generated photos with centrally configured genuine-photo placeholders and verify booking flow.
 - [x] Refine hero typography, spacing, CTAs and trust indicators.
 - [x] Reserve one genuine laboratory photo position.
